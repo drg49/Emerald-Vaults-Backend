@@ -11,8 +11,6 @@ const morgan = require("morgan")
 const mongoose = require("./db/connection")
 
 const AuthRouter = require("./controllers/users")
-const auth = require("./auth/index")
-
 
 app.use(cors());
 app.use(express.urlencoded({extended: false}))
