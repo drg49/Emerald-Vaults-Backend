@@ -33,21 +33,23 @@ const upload = multer({storage}).single('image')
 //CREATE (UPLOAD IMAGE TO S3 & THE URL IMAGE ENDPOINT TO DATABASE)
 router.post("/", auth, upload, async (req, res) => {
     try {
-        let myFile = req.file.originalname.split(".")
-        const fileType = myFile[myFile.length - 1]
-        
-        const params = {
-            Bucket: process.env.AWS_BUCKET_NAME,
-            Key: `${Date.now()}.${fileType}`,
-            Body: req.file.buffer 
-        }
-        s3.upload(params, (error, data) => {
-            if(error) {
-                res.status(500).send(error)
+        if(req.file) {
+            let myFile = req.file.originalname.split(".")
+            const fileType = myFile[myFile.length - 1]
+            const params = {
+                Bucket: process.env.AWS_BUCKET_NAME,
+                Key: `${Date.now()}.${fileType}`,
+                Body: req.file.buffer 
             }
-        })
-
-        res.status(200).json(await Post.create({"image": params.Key, "note": req.body.note}))
+            s3.upload(params, (error, data) => {
+                if(error) {
+                    res.status(500).send(error)
+                }
+            })
+            res.status(200).json(await Post.create({"image": params.Key}))
+        } else if (req.body) {
+            res.status(200).json(await Post.create(req.body))
+        } 
     }
      catch (error) {
         res.status(400).json({error})
