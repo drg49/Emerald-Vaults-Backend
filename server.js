@@ -11,6 +11,7 @@ const morgan = require("morgan")
 const mongoose = require("./db/connection")
 
 const AuthRouter = require("./controllers/users")
+const PostRouter = require("./controllers/posts")
 
 app.use(cors());
 app.use(express.urlencoded({extended: false}))
@@ -25,5 +26,6 @@ app.get("/", (req, res) => {
 })
 
 app.use("/auth", AuthRouter)
+app.use("/post", PostRouter)
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`))

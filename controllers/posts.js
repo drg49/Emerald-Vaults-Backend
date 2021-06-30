@@ -47,7 +47,7 @@ router.post("/", auth, upload, async (req, res) => {
             }
         })
 
-        res.status(200).json(await Post.create({"image": params.Key}))
+        res.status(200).json(await Post.create({"image": params.Key, "note": req.body.note}))
     }
      catch (error) {
         res.status(400).json({error})
@@ -90,4 +90,4 @@ router.delete("/:id", auth, async (req, res) => {
 
 
 
-module.exports = router()
+module.exports = router
