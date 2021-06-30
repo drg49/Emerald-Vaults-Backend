@@ -7,9 +7,10 @@ const auth = require("../auth/index")
 const {Router} = require("express")
 const router = Router()
 
-router.get("/",  async (req, res) => {
+router.get("/:location",  async (req, res) => {
     try {
-        res.status(200).json(await Post.find({}))
+        const {location} = req.params
+        res.status(200).json(await Post.find({location}))
     } 
      catch (error) {
          res.status(400).json({error})
@@ -67,7 +68,7 @@ router.put("/:id", auth, async (req, res) => {
     }
 })
 
-///DELETE///
+///DELETE (For posts with images)///
 router.delete("/:id", auth, async (req, res) => {
     try {
       // delete existing place in the database
@@ -90,6 +91,6 @@ router.delete("/:id", auth, async (req, res) => {
     }
   });
 
-
+///DELETE (For posts without images)///
 
 module.exports = router
