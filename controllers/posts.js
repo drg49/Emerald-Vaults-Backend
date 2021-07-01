@@ -87,11 +87,18 @@ router.delete("/:id", auth, async (req, res) => {
       //return json data
       res.json(deletedImage);
     } catch (error) {
-      // return error as JSON with an error status
       res.status(400).json(error);
     }
   });
 
 ///DELETE (For posts without images)///
+router.delete("/postonly/:id", auth, async (req, res) => {
+    try {
+        const {id} = req.params 
+        res.status(200).json(await Post.findByIdAndDelete(id))
+    } catch (error) {
+        res.status(400).json(error);
+    }
+})
 
 module.exports = router
