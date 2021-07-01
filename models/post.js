@@ -1,7 +1,8 @@
 const {Schema, model} = require("mongoose")
 
 const postSchema = new Schema({
-    username: String,
+    realuser: {type: String, required: true},
+    username: String, //This will either show up as the actual username above^ or it will show up as 'Anonymous'
     image: String,
     note: String,
     location: String

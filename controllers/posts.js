@@ -34,6 +34,7 @@ const upload = multer({storage}).single('image')
 //CREATE (UPLOAD IMAGE TO S3 & THE URL IMAGE ENDPOINT TO DATABASE)
 router.post("/", auth, upload, async (req, res) => {
     try {
+        const {username} = req.payload
         if(req.file) {
             let myFile = req.file.originalname.split(".")
             const fileType = myFile[myFile.length - 1]
@@ -47,7 +48,7 @@ router.post("/", auth, upload, async (req, res) => {
                     res.status(500).send(error)
                 }
             })
-            res.status(200).json(await Post.create({"image": params.Key}))
+            res.status(200).json(await Post.create({"image": params.Key, "realuser": username}))
         } else if (req.body) {
             res.status(200).json(await Post.create(req.body))
         } 
