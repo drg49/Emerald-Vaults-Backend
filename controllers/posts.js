@@ -1,6 +1,5 @@
 require("dotenv/config")
 const Post = require("../models/post")
-const User = require("../models/user")
 const multer = require('multer')
 const AWS = require('aws-sdk')
 const auth = require("../auth/index")
@@ -11,6 +10,16 @@ router.get("/:location",  async (req, res) => {
     try {
         const {location} = req.params
         res.status(200).json(await Post.find({location}))
+    } 
+     catch (error) {
+         res.status(400).json({error})
+     }
+})
+
+router.get("/user/:user",  async (req, res) => {
+    try {
+        const {user} = req.params
+        res.status(200).json(await Post.find({realuser: user}))
     } 
      catch (error) {
          res.status(400).json({error})
