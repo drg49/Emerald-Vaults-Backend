@@ -6,7 +6,7 @@ const auth = require("../auth/index")
 const {Router} = require("express")
 const router = Router()
 
-router.get("/:location",  async (req, res) => {
+router.get("/:location", async (req, res) => {
     try {
         const {location} = req.params
         res.status(200).json(await Post.find({location}))
@@ -16,7 +16,7 @@ router.get("/:location",  async (req, res) => {
      }
 })
 
-router.get("/user/:user",  async (req, res) => {
+router.get("/user/:user", async (req, res) => {
     try {
         const {user} = req.params
         res.status(200).json(await Post.find({realuser: user}))
