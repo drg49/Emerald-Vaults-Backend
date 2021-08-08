@@ -58,7 +58,7 @@ router.post("/", auth, upload, async (req, res) => {
                 }
             })
             res.status(200).json(await Post.create({"image": params.Key, "realuser": username}))
-        } else if (req.body) {
+        } else if (req.body && !req.file) {
             res.status(200).json(await Post.create(req.body))
         } 
     }
