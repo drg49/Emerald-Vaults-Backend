@@ -1,4 +1,4 @@
-# The Emerald Vaults
+# The Vaults App
 
 Created by Daniel Gavin
 
