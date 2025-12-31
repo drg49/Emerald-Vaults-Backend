@@ -1,7 +1,6 @@
-# The Vaults App
+# The Neighborly App
 
 Created by Daniel Gavin
-
 <br>
 
 <h1>View Frontend Repository Here:</h1>
